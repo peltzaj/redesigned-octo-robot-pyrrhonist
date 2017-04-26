@@ -1,2 +1,2 @@
 # redesigned-octo-robot-pyrrhonist
-Randomness
+Randomness and musings while playing at DevOps

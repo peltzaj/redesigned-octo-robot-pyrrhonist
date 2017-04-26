@@ -1,0 +1,51 @@
+oracle username: 3937008
+
+
+# all resources are .rb files
+commands:
+    package
+    service
+    user
+    group
+    template
+    file
+    bash
+
+
+#
+#initial setup of chef-server
+#
+1. chef-server has to be defined in the /etc/hosts
+2. trusted cert has to be imported for the environment
+  knife ssl fetch
+  knife ssl check
+3. add nodes
+  knife bootstrap localhost --ssh-port 2200 --ssh-user vagrant --sudo --identity-file /Users/peltzaj/git/learn-chef/chef-server/.vagrant/machines/node1/virtualbox/private_key --node-name node1 --run-list 'recipe[learn_chef_httpd]'
+4. add roles
+  knife role from file <basic.json>
+
+
+#run locally against self
+chef-client --local-mode <file.rb>
+chef-client --local-mode --runlist 'recipe[learn_chef_httpd]'
+
+#run chef against a node
+knife ssh <host> --ssh-port 2200 'sudo chef-client'
+                 --manual-list --ssh-user vagrant
+                 --identity-file /root/learn-chef/chef-server/.vagrant/machines/node1-centos/virtualbox/private_key
+
+
+
+#
+#all collections of recipes are in cookbooks  ~/cookbooks
+#
+
+#creating a cookbook
+chef generate cookbook <path>/<cookbook_name>
+
+#adding a <   > directory to the cookbook
+  chef generate template <path>/<cookbook_name>
+                file
+
+# uploading cookboks to the chef-server (must be done after every revision in metadata.rb)
+knife cookbook upload <name_of_cookbook>

@@ -1,0 +1,16 @@
+{
+   "name": "basic",
+   "description": "basic role.",
+   "json_class": "Chef::Role",
+   "default_attributes": {
+   },
+   "override_attributes": {
+   },
+   "chef_type": "role",
+   "run_list": ["recipe[chef-client::default]",
+                "recipe[chef-client::delete_validation]",
+                "recipe[install_tree::default]"
+   ],
+   "env_run_lists": {
+   }
+}
